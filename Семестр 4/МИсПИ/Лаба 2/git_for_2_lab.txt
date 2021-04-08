@@ -1,0 +1,93 @@
+.............................................................
+git init 
+git config --local user.name "egor"
+git config --local user.email egor.mitrofanov@hotmail.com
+git add .
+git commit -m "r0"
+.............................................................
+git checkout -b brench2
+//заменяет файлы на r1
+git add .
+git commit -m "r1"
+.............................................................
+git checkout master 
+//заменяет файлы на r2
+git add .
+git commit -m "r2"
+.............................................................
+//заменяет файлы на r3
+git add .
+git commit -m "r3"
+.............................................................
+git config --local user.name "vova"
+git config --local user.email patutin.vovan@mail.ru
+git checkout -b brench3
+//заменяет файлы на r4
+git add .
+git commit -m "r4"
+.............................................................
+git config --local user.name "egor"
+git config --local user.email egor.mitrofanov@hotmail.com
+git checkout master
+//заменяет файлы на r5
+git add .
+git commit -m "r5"
+.............................................................
+git config --local user.name "vova"
+git config --local user.email patutin.vovan@mail.ru
+git checkout brench3 
+//заменяет файлы на r6
+git add .
+git commit -m "r6"
+.............................................................
+//заменяет файлы на r7
+git add .
+git commit -m "r7"
+.............................................................
+git config --local user.name "egor"
+git config --local user.email egor.mitrofanov@hotmail.com
+git checkout brench2
+//заменяет файлы на r8
+git add .
+git commit -m "r8"
+.............................................................
+git config --local user.name "vova"
+git config --local user.email patutin.vovan@mail.ru
+git checkout brench3 
+//заменяет файлы на r9
+git add .
+git commit -m "r9"
+.............................................................
+git config --local user.name "egor"
+git config --local user.email egor.mitrofanov@hotmail.com
+git checkout master
+//заменяет файлы на r10
+git add .
+git commit -m "r10"
+.............................................................
+git checkout brench2
+//заменяет файлы на r11
+git add .
+git commit -m "r11"
+.............................................................
+git checkout master
+git merge brech2
+//заменяет файлы на r12
+git add .
+git commit -m "r12"
+.............................................................
+git config --local user.name "vova"
+git config --local user.email patutin.vovan@mail.ru
+git checkout brench3 
+//заменяет файлы на r13
+git add .
+git commit -m "r13"
+.............................................................
+git config --local user.name "egor"
+git config --local user.email egor.mitrofanov@hotmail.com
+git checkout master
+git merge brech3
+//заменяет файлы на r14
+git add .
+git commit -m "r14"
+.............................................................

@@ -1,0 +1,91 @@
+mkdir msp
+cd msp
+svnadmin create repository
+mkdir main
+svn mkdir file:///home/s282606/msp/repository/trunk  #create dir in rep
+svn checkout file:///home/s282606/msp/repository/trunk main/trunk
+cd main/trunk
+#load r0
+svn add *
+svn commit -m"r0"--username=vova
+cd ../..
+svn mkdir file:///home/s282606/msp/repository/branches
+svn copy file:///home/s282606/msp/repository/trunk file:///home/s282606/msp/repository/branches/branch1  #create brach
+svn checkout file:///home/s282606/msp/repository/branches/branch1
+cd main/branch1
+#load r1
+svn commit -m"r1" --username=vova
+cd ../trunk
+#load r2
+svn commit -m"r2" --username=vova
+#load r3
+svn add *
+svn commit -m"r3"--username=vova
+cd ../..
+mkdir other_main
+svn copy file:///home/s282606/msp/repository/trunk file:///home/s282606/msp/repository/branches/branch2  #create brach
+cd other_main
+svn checkout file:///home/s282606/msp/repository/branches/branch2
+#load r4
+svn rm TJ8GCiy9J8.UxW
+svn add *
+svn commit -m"r4" --username=egor
+cd ../..
+#load r5
+svn rm TJ8GCiy9J8.UxW
+svn add *
+svn commit -m"r5" --username=vova
+cd ../..
+cd other_main/branch2
+#load r6
+svn rm iy9J8dgU1q.8GC
+svn add *
+svn commit -m "r6" --username=egor 
+#load r7
+svn add *
+svn commit -m "r7" --username=egor 
+cd ../../main/branch1
+#load r8
+svn add *
+svn commit -m "r8" --username=vova 
+cd ../../other_main/branch2/
+#load r9
+svn rm TJ8GCiy9J8.UxW
+svn add *
+svn commit -m "r9" --username=egor 
+cd ../../main/trunk
+#load r10
+svn rm WTJ8GCiy9J.cUx
+svn add *
+svn commit -m "r10" --username=vova 
+cd ../branch1
+#load r11
+svn rm TJ8GCiy9J8.UxW
+svn add *
+svn commit -m "r11" --username=vova 
+cd ../trunk
+svn up
+svn merge file:///home/s282606/msp/repository/branches/branch1
+# df, resolved
+svn add *
+svn commit -m"r12" --username=vova
+#load r12
+svn rm UxWTJ8GCiy.YNc
+svn rm WTJ8GCiy9J.cUx
+svn add *
+svn commit -m"r12" --username=vova
+cd ../../other_main/branch2
+#load r13
+svn rm WTJ8GCiy9J.cUx
+svn add *
+svn commit -m"r13" --username=egor
+cd ../../main/trunk/
+svn merge file:///home/s282606/msp/repository/branches/branch2
+# df, resolved
+svn resolved TJ8GCiy9J8.UxW
+svn add *
+svn commit -m"r14" --username=vova
+#load r14
+svn rm UxWTJ8GCiy.YNc
+svn add *
+svn commit -m"r14" --username=vova
