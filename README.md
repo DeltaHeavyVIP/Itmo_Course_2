@@ -5,4 +5,4 @@
 Но все они написаны на коленке за часа 3-4, поэтому не факт что я их выгружу, слишком стыдно.
 ### О Алгоритмах:
 Алгосы будут выгружены к концу 4 сема, потому что можно схватить бан на контесте, если кто-то их скатает.
-</br></br>![У меня много хвостов](https://lh3.googleusercontent.com/proxy/WC5Boke3WlV1L4-hKOy4wda2r0QMTq8jrCALr7eXEduRBeWeQVUKhTxIX2oNkehbRVKN3mpV2EJOkLX711M3-FLUi59Z-ggn0JG1V6CA_Utz_v1xLU0d7gTTP71mwNsYsWaHPM9ydqr-vq6XccYy1Pj42lAk4xdtULF5KmoVq2E)
+</br></br>![У меня много хвостов](https://static.wikia.nocookie.net/teenwolf/images/e/ec/Jakan.jpg/revision/latest/scale-to-width-down/220?cb=20200113202352&path-prefix=ru)
