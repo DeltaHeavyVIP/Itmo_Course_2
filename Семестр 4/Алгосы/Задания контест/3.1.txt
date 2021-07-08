@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+#include <set>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+int main()
+{
+    map<int, int> cars;
+    set<int> cars_floor;
+    int k, k_floor, oper, go = 0, number;
+
+    cin >> k >> k_floor >> oper;
+
+    int* next = new int[oper];
+    int* operation = new int[oper];
+    int max = oper + 1;
+
+    for (int i = 0; i < oper; i++) {
+        cin >> operation[i];
+        if (cars.find(operation[i]) == cars.end()) {
+            cars.insert(pair<int, int>(operation[i], i));
+        }
+        else
+        {
+            number = cars[operation[i]];
+            next[number] = i;
+            cars[operation[i]] = i;
+        }
+        next[i] = max;
+    }
+
+    for (int i = 0; i < oper; i++) {
+        if (cars_floor.count(i) == 0) {
+            if (cars_floor.size() < k_floor) {
+                cars_floor.insert(next[i]);
+            }
+            else
+            {
+                cars_floor.erase(*cars_floor.rbegin());
+                cars_floor.insert(next[i]);
+            }
+            go++;
+        }
+        else
+        {
+            cars_floor.erase(i);
+            cars_floor.insert(next[i]);
+        }
+    }
+    cout << go << endl;
+
+}

@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class Main {
+    public static String[] vowelsAlphabet = {"a", "e", "i", "o", "u", "y"};
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String nickName = scanner.next();
+        boolean flag = true;
+        for (int i = 0; i < nickName.length()-1; i++) {
+            if (!((findVowels(nickName.charAt(i)) && !findVowels(nickName.charAt(i + 1))) || (!findVowels(nickName.charAt(i)) && findVowels(nickName.charAt(i + 1))))) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+    }
+
+    public static boolean findVowels(char letter) {
+        for (int j = 0; j < vowelsAlphabet.length; j++) {
+            if (vowelsAlphabet[j].equals(Character.toString(letter))) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

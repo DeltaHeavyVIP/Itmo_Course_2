@@ -1,0 +1,71 @@
+#include <iostream>
+#include <cmath>
+#include <stack> 
+#include <string>
+#include <cstring>
+
+int main() {
+
+	std::stack<int> stack;
+	std::string input;
+
+	std::cin >> input;
+
+	int k =input.length();
+	int *animal = new int[k];
+	memset(animal, 0, k);
+
+	int end_animal = 0;
+	int end_hook = 0;
+
+	for (int i = 0; i < k; i++) {
+		if (input[i] >= 'a' && input[i] <= 'z') {
+			animal[i] = end_animal;
+			end_animal++;
+		}
+		else if (input[i] >= 'A' && input[i] <= 'Z') {
+			animal[i] = end_hook;
+			end_hook++;
+		}
+	}
+
+	int last = 0;
+	int *answer= new int[k / 2];
+	memset(answer, 0, k);
+
+	for (int i = 0; i < k; i++) {
+		if (i == 0 || stack.size() == 0) {
+			last = i;
+			stack.push(i);
+		}
+		else {
+			if (abs(input[i] - input[last]) == 32) {
+				stack.pop();
+				if (input[last] >= 'A' && input[last] <= 'Z') {
+					answer[animal[last]] = animal[i];
+				}
+				else if (input[last] >= 'a' && input[last] <= 'z') {
+					answer[animal[i]] = animal[last];
+				}
+				if (stack.size() != 0) {
+					last = stack.top();
+				}
+			}
+			else {
+				stack.push(i);
+				last = i;
+			}
+		}
+	}
+
+	if (stack.size() == 0) {
+		std::cout << "Possible\n";
+		for (int i = 0; i < k / 2; i++) {
+			std::cout << answer[i] + 1 << " ";
+		}
+	}
+	else {
+		std::cout << "Impossible";
+	}
+	std::cout << std::endl;
+}

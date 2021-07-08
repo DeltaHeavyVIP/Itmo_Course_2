@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int hours = scanner.nextInt();
+        int minutes = scanner.nextInt();
+        int seconds = scanner.nextInt();
+        int time = scanner.nextInt();
+        int varibaleForSwap = 0;
+        varibaleForSwap = time / seconds;
+        seconds = time % seconds;
+        time = varibaleForSwap / minutes;
+        minutes = varibaleForSwap % minutes;
+        hours = time % hours;
+        System.out.println(hours + " " + minutes + " " + seconds);
+    }
+}

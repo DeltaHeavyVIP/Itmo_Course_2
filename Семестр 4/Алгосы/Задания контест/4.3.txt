@@ -1,0 +1,61 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+inline bool dfs(int to,int from,vector<vector<int>>& arr,int* color) {
+	bool ret = true;
+	if (color[to] > -1) {
+		ret = ((color[from] != color[to]) || (from == -2));
+	}
+	else {
+		if (from == -2) {
+			color[to] = 0;
+		}
+		else {
+			if (color[from] == 1) {
+				color[to] = 0;
+			}
+			else{
+				color[to] = 1;
+			}
+		}
+		for (int i = 0; i < arr[to].size(); i++) {
+			if (!dfs(arr[to][i], to,arr,color)) {
+				ret = false;
+			}
+		}
+	}
+	return ret;
+}
+int main() {
+	int k, n, p_1, p_2;
+	bool flag = true;
+	cin >> k >> n;
+
+	vector<vector<int>> arr(k);
+	int* color = new int[k];
+	for (int i = 0; i < k; i++) {
+		color [i] = -1;
+	}
+
+	for (int i = 0; i < n; i++) {
+		cin >> p_1 >> p_2;
+		arr[p_2 - 1].push_back(p_1 - 1);
+		arr[p_1 - 1].push_back(p_2 - 1);
+	}
+
+	for (int i = 0; i < k; i++) {
+		if (!dfs(i,-2, arr, color)) {
+			flag = false;
+			break;
+		}
+	}
+
+	if (flag == true) {
+		cout << "YES";
+	}
+	else {
+		cout << "NO";
+	}
+}

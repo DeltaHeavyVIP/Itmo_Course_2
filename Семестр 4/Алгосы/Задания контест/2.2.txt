@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	string *mass = new string[100];
+	for (int i = 0; i < 100; i++) {
+		mass[i] = "b";
+	}
+
+	string input;
+	int i = 0;
+
+	while (cin >> input) {
+		mass[i] = input;
+		i++;
+	}
+
+
+	for (int i = 99; i >= 0; --i)
+		for (int j = 0; j < i; ++j)
+			if (mass[j + 1] != "b" && mass[j] != "b") {
+				if (mass[j + 1] + mass[j] > mass[j] + mass[j + 1])
+					swap(mass[j], mass[j + 1]);
+			}
+	for (int j = 0; j < 100; ++j)
+		if (mass[j] != "b") {
+			cout << mass[j];
+		}
+}

@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+
+using namespace std;
+
+int main() 
+{
+	int k_k, k_s, max, min, midle, kol, last, answer;
+	bool flag =true;
+
+	cin >> k_s >> k_k;
+	int *s = new int[k_s];
+
+	for (int i = 0; i < k_s; i++) {
+		cin >> s[i];
+	}
+
+	kol = 1;
+	answer = s[k_s - 1] - s[0];
+	last = 0;
+	min = 0;
+	max = s[k_s - 1];
+	midle = round((min + max) / 2);
+
+	while (flag)
+	{
+		for (int i = 0; i < k_s; i++) {
+			int cuka = s[i] - s[last];
+			if (cuka>= midle) {
+				kol++;
+				last = i;
+			}
+		}
+
+		if (kol < k_k) {
+			max = midle;
+		}
+		else if (kol >= k_k) {
+			min = midle;
+		}
+		kol = 1;
+		last = 0;
+
+		if (midle == round((min + max) / 2)) {
+			flag = false;
+		}
+		else {
+			midle = round((min + max) / 2);
+		}
+	}
+
+	answer = midle;
+
+	cout << answer;
+}

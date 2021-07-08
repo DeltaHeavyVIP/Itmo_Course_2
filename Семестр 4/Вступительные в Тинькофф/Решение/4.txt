@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        int parcelCount = scanner.nextInt();
+        int parcelInBox = scanner.nextInt();
+        int boxConst = scanner.nextInt();
+        int[] parcelsWeight = new int[parcelCount];
+        for (int i = 0; i < parcelCount; i++) {
+            parcelsWeight[i] = scanner.nextInt();
+        }
+
+        int sum = 0;
+        for (int i = 0; i < parcelCount; i++) {
+            int weightbox = boxConst;
+            int count = 0;
+            int indexOfMaxNumber = i;
+            int indexOfMinNumber = i;
+            int index = i;
+
+            for (int j = i; j < i + parcelInBox && j<parcelCount; j++) {
+                if (parcelsWeight[j] > parcelsWeight[indexOfMaxNumber]) {
+                    indexOfMaxNumber = j;
+                } else if (parcelsWeight[j] < parcelsWeight[indexOfMinNumber]) {
+                    indexOfMinNumber = j;
+                }
+                count++;
+
+                int weightBoxNow = (parcelsWeight[indexOfMaxNumber] - parcelsWeight[indexOfMinNumber]) * (count * count) + boxConst;
+
+                if (weightBoxNow < (weightbox + 8 * (count - 1 - index + i))) {
+                    weightbox = weightBoxNow;
+                    index = j;
+                }
+            }
+            sum += weightbox;
+            i = index;
+        }
+        System.out.println(sum);
+    }
+}

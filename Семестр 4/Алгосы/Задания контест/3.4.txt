@@ -1,0 +1,48 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	unsigned int n;
+	int k,min,index;
+	cin >> n >> k;
+	int *number = new int[n];
+
+	for (int i = 0; i < n; i++) {
+		cin >> number[i];
+	}
+
+	min = number[0];
+	index = 0;
+	for (int i = 0; i < k; i++) {
+		if (number[i] <= min) {
+			min = number[i];
+			index = i;
+		}
+	}
+
+	for (int i = 0; i < n - k + 1; i++) {
+		if (i > index || number[i + k - 1] <= min) {    //либо индекс ушел , либо число меньше
+			if (i <= index && number[i + k - 1] <= min) { // интдекс на месте, но новое число меньше
+				min = number[i + k - 1];
+				index = i + k - 1;
+			}
+			else if(i > index && number[i + k - 1] >= min) { // индекс ушел , но новое число больше
+				min = number[i];
+				for (int j = i; j < i + k; j++) {
+					if (number[j] <= min) {
+						min = number[j];
+						index = j;
+					}
+				}
+			}else {											//индекс ушел и новое число меньше 
+				min = number[i + k - 1];
+				index = i + k - 1;
+			}
+		}
+		cout << min << " ";
+	}
+	
+	cout << endl;
+}

@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+	Scanner scanner = new Scanner(System.in);
+        int dom_0_0 = scanner.nextInt();
+        int dom_0_1 = scanner.nextInt();
+        int dom_1_0 = scanner.nextInt();
+        int dom_1_1 = scanner.nextInt();
+        if (dom_0_0 == dom_1_0) {
+            System.out.println(dom_0_1 + " " + dom_0_0 + " " + dom_1_0 + " " + dom_1_1);
+        } else if (dom_0_0 == dom_1_1) {
+            System.out.println(dom_0_1 + " " + dom_0_0 + " " + dom_1_1 + " " + dom_1_0);
+        } else if (dom_0_1 == dom_1_0) {
+            System.out.println(dom_0_0 + " " + dom_0_1 + " " + dom_1_0 + " " + dom_1_1);
+        } else if (dom_0_1 == dom_1_1) {
+            System.out.println(dom_0_0 + " " + dom_0_1 + " " + dom_1_1+ " " + dom_1_0);
+        }else {
+            System.out.println(-1);
+        }
+    }
+}

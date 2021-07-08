@@ -1,0 +1,99 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <cassert>
+
+using namespace std;
+
+struct Structure {
+
+	int interval;
+	int i;
+	int j;
+	string path;
+	Structure(const int interval, const int i, const int j,const string path) : interval(interval), i(i), j(j), path(path){}
+};
+
+bool operator <(const Structure& left, const Structure& right) {
+	return left.interval > right.interval;
+}
+
+int main() {
+	int map_y, map_x, hum_y, hum_x, home_y, home_x;
+	cin >> map_y >> map_x >> hum_y >> hum_x >> home_y >> home_x;
+
+	vector<vector<char>> map(2 + map_y, vector<char>(2 + map_x, '#'));
+	vector<vector<int>> interval(2 + map_y, vector<int>(2 + map_x, 1000000000));
+	vector<vector<bool>> end(2 + map_y, vector<bool>(2 + map_x, false));
+	priority_queue<Structure> pq;
+	for (int i = 1; i <= map_y; i++) {
+		for (int j = 1; j <= map_x; j++) {
+			cin >> map[i][j];
+		}
+	}
+
+
+	pq.push(Structure(0, hum_y, hum_x,""));
+	interval[hum_y][hum_x] = 0;
+	string out;
+	while (true) {
+
+		if (pq.empty()) {
+			break;
+		}
+		Structure st = pq.top();
+		pq.pop();
+		if (end[st.i][st.j]) {
+			continue;
+		}
+		if (st.i == home_y && st.j == home_x) {
+			cout << interval[home_y][home_x] << endl;
+			cout << st.path;
+			return 0;
+		}
+		end[st.i][st.j] = true;
+		int stInterval = interval[st.i][st.j];
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				if (i * i + j * j == 1) {
+					int bbi = st.i + i;
+					int bbj = st.j + j;
+					if (end[bbi][bbj]) {
+						continue;
+					}
+					if (map[bbi][bbj] == '#') {
+						continue;
+					}
+					int bbd;
+					if (map[bbi][bbj] == '.') {
+						bbd = stInterval + 1;
+					}
+					else {
+						bbd = stInterval + 2;
+					}
+					if (bbd < interval[bbi][bbj]) {
+						interval[bbi][bbj] = bbd;
+						string new_path = st.path;
+						if (i == -1 && j == 0) {
+							new_path = new_path + "N";
+						}
+						if (i == 0 && j == -1) {
+							new_path = new_path + "W";
+						}
+						if (i == 0 && j == 1) {
+							new_path = new_path + "E";
+						}
+						if (i == 1 && j == 0) {
+							new_path = new_path + "S";
+						}
+						pq.push(Structure(bbd, bbi, bbj,new_path));
+					}
+				}
+			}
+		}
+		
+	}
+	cout << "-1";
+	return 0;
+}

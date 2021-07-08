@@ -1,0 +1,95 @@
+#include <iostream>
+
+using namespace std;
+
+inline void dfs_vertic(int p, int** fuck, int n, bool* were, int middle) {
+	were[p] = true;
+	bool aaa;
+	for (int i = 0; i < n; i++) {
+		if (fuck[i][p] <= middle) {
+			aaa = true;
+		}
+		else {
+			aaa = false;
+		}
+		if (aaa && !were[i]) {
+			dfs_vertic(i, fuck, n, were, middle);
+		}
+	}
+}
+
+inline void dfs_horizon(int p, int** fuck, int n, bool* were, int middle) {
+	were[p] = true;
+	bool aaa;
+	for (int i = 0; i < n; i++) {
+		if (fuck[p][i] <= middle) {
+			aaa = true;
+		}
+		else {
+			aaa = false;
+		}
+		if (aaa && !were[i]) {
+			dfs_horizon(i, fuck, n, were, middle);
+		}
+	}
+}
+
+inline bool all_true(bool* were, int n) {
+	for (int i = 0; i < n; i++) {
+		if (were[i] == false) {
+			return false;
+		}
+	}
+	return true;
+}
+
+int main() {
+	int n, inp, max = 10000000000, min = 0, middle;
+	cin >> n;
+
+	int** arr = new int* [n];
+	bool* were = new bool[n];
+
+	for (int i = 0; i < n; i++) {
+		arr[i] = new int[n];
+	}
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> inp;
+			arr[i][j] = inp;
+		}
+	}
+
+	while (true) {
+
+		for (int i = 0; i < n; i++) {
+			were[i] = false;
+		}
+		middle = (min + max) / 2;
+
+		dfs_horizon(0, arr, n, were, middle);
+
+		if (all_true(were, n)) {
+			for (int i = 0; i < n; i++) {
+				were[i] = false;
+			}
+			dfs_vertic(0, arr, n, were, middle);
+			if (all_true(were, n)) {
+				max = middle;
+			}
+			else {
+				min = middle + 1;
+			}
+
+		}
+		else {
+			min = middle + 1;
+		}
+		if (min >= max) {
+			cout << min << endl;
+			return 0;
+		}
+	}
+	cout << min;
+}

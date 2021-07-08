@@ -1,0 +1,97 @@
+#include <iostream>
+#include <stack> 
+#include <string>
+#include <map>
+#include <algorithm>
+#include <fstream>
+#include <cstdlib>
+
+using namespace std;
+
+inline bool isInteger(const std::string & s)
+{
+	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+
+	char * p;
+	strtol(s.c_str(), &p, 10);
+
+	return (*p == 0);
+}
+
+int main() {
+
+	map<string, stack<int>> value_map;
+	map<int, stack<string>> level_map;
+	map <string, stack<int>> ::iterator iter_value, iter_value_2;
+	map <int, stack<string>> ::iterator iter_level;
+	int level = 0;
+	string input;
+	string before_equelly;
+	string after_equelly;
+	int equelly;
+
+	/*ifstream inf("C:\\Users\\PatutinVM\\source\\repos\\ConsoleApplication1\\input.txt");
+
+	// Если мы не можем открыть этот файл для чтения его содержимого,
+	if (!inf)
+	{
+		// то выводим следующее сообщение об ошибке и выполняем функцию exit()
+		cerr << "Uh oh, SomeText.txt could not be opened for reading!" << endl;
+		exit(1);
+	}
+
+	inf >> input;*/
+		
+	getline(cin, input);
+
+	while (input != "") {
+		//cout << " >>>>> " << input << " <<<<<< " << endl;
+		if (input == "{") {
+			level = level + 1;
+		}
+		else if (input == "}") {
+			int k = level_map[level].size();
+			for (int i = 0; i < k; i++) {
+				string elem = level_map[level].top();
+				
+				level_map[level].pop();
+				//iter_value = value_map.find(elem);
+				//iter_value->second.pop();
+				value_map[elem].pop();
+			}
+			//iter_level = level_map.find(level);
+			//level_map.erase(iter_level);
+			level_map.erase(level);
+			level = level - 1;
+		}
+		else {
+			equelly = input.find('=');
+			before_equelly = input.substr(0, equelly);
+			after_equelly = input.substr(equelly + 1);
+			//iter_level = level_map.find(level);
+			//iter_level->second.push(before_equelly);
+			level_map[level].push(before_equelly);
+			if (isInteger(after_equelly)) {
+				int number = stoi(after_equelly);
+				//iter_value = value_map.find(before_equelly);
+				//iter_value->second.push(number);
+				value_map[before_equelly].push(number);
+			}
+			else {
+				int value_2;
+				if (!(value_map[after_equelly].empty())) {
+					value_2 = value_map[after_equelly].top();
+				}
+				else {
+					value_2 = 0;
+				}
+				//iter_value = value_map.find(before_equelly);
+				//iter_value->second.push(value_2);
+				value_map[before_equelly].push(value_2);
+				cout << value_2 << endl;
+			}
+		}
+		getline(cin, input);
+	}
+	//cout << "aaaaaaaaaaaaaaaa" << endl;
+}

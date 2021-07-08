@@ -1,0 +1,42 @@
+#include <iostream>
+#include <deque> 
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	string input;
+	int k;
+	int number;
+	deque <int> goblin_1;
+	deque <int> goblin_2;
+
+	cin >> k;
+
+	for (int i = 0; i < k; i++) {
+		cin >> input;
+		if (input == "-") { //ввели -
+			cout << goblin_1.front() << endl;
+			goblin_1.pop_front();
+		}
+		else{
+			cin >> number;
+			if (input == "+") {//ввели +
+				goblin_2.push_back(number);
+			}
+			else {//ввели *
+				if (goblin_1.size() == goblin_2.size()) {
+					goblin_1.push_back(number);
+				}
+				else {
+					goblin_2.push_front(number);
+				}
+			}
+		}
+		if (goblin_1.size() < goblin_2.size()) {
+			goblin_1.push_back(goblin_2.front());
+			goblin_2.pop_front();
+		}
+	}
+}

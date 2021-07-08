@@ -1,0 +1,23 @@
+#include <iostream>
+
+int main()
+{
+	int begin, mnog, minuc, max, days,now;
+	std::cin >> now >> mnog >> minuc >> max >> days;
+
+	begin = now + 1;
+	for (int i = 0; i < days && now > 0 && now != begin; i++) {
+		begin = now;
+		now = now * mnog - minuc;
+		if (now > max) {
+			now = max;
+		}
+	}
+	if (now<=0) {
+		std::cout << 0;
+	}
+	else {
+		std::cout << now;
+	}
+
+}

@@ -1,0 +1,57 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+	map<char, int[2]> alf;
+	string input, middle;
+	string alfav = "abcdefghijklmnopqrstuvwxyz";
+	vector<char> pov;
+	cin >> input;
+	for (int i = 0; i <= 25; i++) {
+		cin >> alf[alfav[i]][0];
+	}
+
+	for (int i = 0; i < input.length(); i++) {
+		alf[input[i]][1] += 1;
+	}
+
+	for (int i = 0; i < alfav.length() - 1; i++) {
+		for (int j = i + 1; j < alfav.length(); j++) {
+			if (alf[alfav[j]][0] >= alf[alfav[i]][0]) {
+				swap(alfav[j], alfav[i]);
+			}
+		}
+	}
+
+	for (int i = 0; i < alfav.length(); i++) {
+		int kol_bok = alf[alfav[i]][1];
+		if (kol_bok == 1) {
+			middle = middle + alfav[i];
+		}
+		else if (kol_bok == 2) {
+			pov.push_back(alfav[i]);
+		}
+		else if (kol_bok > 2) {
+			pov.push_back(alfav[i]);
+			for (int j = 0; j < kol_bok-2; j++) {
+				middle = middle + alfav[i];
+			}
+		}
+	}
+
+	for (int i = 0; i < pov.size(); i++) {
+		cout << pov[i];
+	}
+
+	cout << middle;
+
+	for (int i = pov.size() - 1; i >= 0; i--) {
+		cout << pov[i];
+	}
+
+}

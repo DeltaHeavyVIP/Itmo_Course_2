@@ -1,0 +1,26 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	unsigned int k,discount;
+	int sum = 0;
+	int p = 0;
+	cin >> k >> discount;
+	int *price = new int[k];
+
+	for (int i = 0; i < k; i++) {
+		cin >> price[i];
+		sum = sum + price[i];
+	}
+
+	int disk = k / discount;
+	sort(price,price+k);
+
+	for (int i = 0;i<disk;i++)
+	{
+		sum = sum - price[k - discount*(i+1)];
+	}
+	cout << sum << endl;
+}

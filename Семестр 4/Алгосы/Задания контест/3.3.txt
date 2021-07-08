@@ -1,0 +1,122 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <map>
+
+using namespace std;
+
+struct segment {
+    segment* left_cell;
+    segment* right_cell;
+    int left_border; 
+    int right_border;
+    bool free;
+};
+
+int main() {
+    int size;
+    int k;
+    cin >> size >> k;
+
+    auto compar = [](segment* a, segment* b) {
+        if (!b) {
+            return true;
+        }
+        else if (!a) {
+            return false;
+        }
+        if ((a->right_border - a->left_border) == (b->right_border - b->left_border)) {
+                return a < b;
+        }
+        return (a->right_border - a->left_border) > (b->right_border - b->left_border);
+    };
+    std::set<segment*, decltype(compar)> arr(compar);
+    segment* root = new segment({ nullptr, nullptr, 0, size, false });
+    map<int, int> mapa;
+    arr.insert(root);
+    vector<segment*> mass(k, nullptr);
+    for (int i = 0; i < k; i++) {
+        int k;
+        cin >> k;
+        if (k > 0) 
+        {
+            segment * new_ellem = *arr.begin();
+            mapa[k] = new_ellem->left_border;
+            if (new_ellem->right_border - new_ellem->left_border < k) 
+            {
+                cout << -1 << endl;
+            }
+            else 
+            {
+                arr.erase(new_ellem);
+
+                segment* prefix = new segment({ new_ellem->left_cell, nullptr, new_ellem->left_border, new_ellem->left_border, false });
+                if (prefix->left_cell) 
+                {
+                    prefix->left_cell->right_cell = prefix;
+                }
+                arr.insert(prefix);
+
+                segment* free = new segment({ prefix, nullptr, new_ellem->left_border, new_ellem->left_border + k, true });
+                prefix->right_cell = free;
+
+                segment* new_free = new segment({ free, new_ellem->right_cell, new_ellem->left_border + k, new_ellem->right_border, false });
+                if (new_ellem->right_cell)
+                {
+                    new_ellem->right_cell->left_cell = new_free;
+                }
+
+                free->right_cell = new_free;
+
+                delete(new_ellem);
+
+                arr.insert(new_free);
+                mass[i] = free;
+                cout << free->left_border + 1 << endl;
+            }
+        }
+        else 
+        {
+        	k++;
+            k = -1 * k;
+
+            segment* ellem = mass[k];
+            if (!ellem) 
+            {
+                continue;
+            }
+            mass[k] = nullptr;
+            segment* now = new segment({ nullptr, nullptr, ellem->left_border, ellem->right_border, false });
+
+            segment* left_cell = ellem->left_cell;
+            segment* right_cell = ellem->right_cell;
+
+            if (left_cell)
+            {
+                now->left_border = left_cell->left_border;
+                now->left_cell = left_cell->left_cell;
+                if (now->left_cell) 
+                {
+                    now->left_cell->right_cell = now;
+                }
+                arr.erase(left_cell);
+                delete(left_cell);
+            }
+
+            if (right_cell) 
+            {
+                now->right_border = right_cell->right_border;
+                now->right_cell = right_cell->right_cell;
+                if (now->right_cell) 
+                {
+                    now->right_cell->left_cell = now;
+                }
+                arr.erase(right_cell);
+                delete(right_cell);
+            }
+            arr.erase(ellem);
+            delete(ellem);
+            arr.insert(now);
+        }
+    }
+}

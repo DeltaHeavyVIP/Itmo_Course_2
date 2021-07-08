@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int n, m, inp, line, column, out = 0;
+	cin>> n>> m;
+	vector<vector<int>> mtx(n);
+	for (int i = 0; i < n; i++){
+		for (int j = 0; j < m; j++) {
+			cin >> inp;
+			mtx[i].push_back(inp);
+		}
+	}
+
+	int* element = new int[4];
+	for (int i = 0; i <= n - i - 1; ++i){
+		for (int j = 0; j <= m - j - 1; ++j) {
+			
+			line = n - i - 1;
+			column = m - j - 1;
+			element[0] = mtx[i][j];
+			element[1] = mtx[line][column]; 
+			element[2] = mtx[i][column];
+			element[3] = mtx[line][j];
+			if (m % 2 == 1 && column == (m / 2)) {
+				element[2] = -1;
+				element[3] = -1;
+			}
+			if (n % 2 == 1 && line == (n / 2)) {
+				element[2] = -1;
+				element[3] = -1;
+			}
+
+			int max_count = 0;
+			int max = -2;
+			for (int i = 0; i < 4; i++) {
+				int count = 0;
+				for (int j = 0; j < 4; j++) {
+					if (element[i] == element[j] && element[i] >-1) { count++; }
+				}
+				if (count > max_count) {
+					max_count = count;
+					max = element[i];
+				}
+			}
+
+			for (int i = 0; i < 4; i++) {
+				if (element[i] != max && element[i] > -1) {
+					out++;
+				}
+				element[i] = -1;
+			}
+		}
+	}
+	cout << out;
+}
